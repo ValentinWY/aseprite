@@ -92,7 +92,7 @@ jobs:
       run: |
         cd build && ninja
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v6
       with:
         name: aseprite-binary
         path: build/bin/aseprite
