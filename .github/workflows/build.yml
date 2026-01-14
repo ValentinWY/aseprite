@@ -1,12 +1,12 @@
 name: build
-on: [push, pull_request, workflow_dispatch]
+on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        os: [macos-latest]
         build_type: [RelWithDebInfo, Debug]
         ui: [gui, cli]
         scripting: [lua, noscripts]
@@ -91,6 +91,12 @@ jobs:
       shell: bash
       run: |
         cd build && ninja
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: aseprite-binary
+        path: build/bin/aseprite
+        retention-days: 1
     - name: Running C++ Tests
       shell: bash
       run: |
